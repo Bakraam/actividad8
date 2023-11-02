@@ -1,11 +1,11 @@
 const http = require('node:http');
 const app = require('./src/app');
 
-//Configuración del fichero de entorno .env
+//Config del fichero de entorno .env
 require('dotenv').config();
 
-//Configuración BD
-
+//Config BD
+require('./src/config/db');
 
 //Server
 const server = http.createServer(app);
