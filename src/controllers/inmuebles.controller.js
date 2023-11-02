@@ -1,9 +1,13 @@
-const getInmuebles = (req, res) => {
-    res.json('GET')
+const InmuebleModel = require('../models/inmueble.model');
+
+const getInmuebles = async (req, res) => {
+    const inmuebles = await InmuebleModel.find();
+    res.json(inmuebles);
 }
 
-const createInmueble = (req, res) => {
-    res.json('POST')
+const createInmueble = async (req, res) => {
+    const result = await InmuebleModel.create(req.body);
+    res.json(result); 
 }
 
 const updateInmueble = (req, res) => {
