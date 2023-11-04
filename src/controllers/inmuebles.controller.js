@@ -1,21 +1,43 @@
 const InmuebleModel = require('../models/inmueble.model');
 
 const getInmuebles = async (req, res) => {
-    const inmuebles = await InmuebleModel.find();
-    res.json(inmuebles);
+    try {
+        const inmuebles = await InmuebleModel.find();
+        res.json(inmuebles);
+    } catch (error) {
+        res.json({ fatal: error.message });
+    }
+    
 }
 
 const createInmueble = async (req, res) => {
-    const result = await InmuebleModel.create(req.body);
-    res.json(result); 
+    try {
+        const result = await InmuebleModel.create(req.body);
+        res.json(result);
+    } catch (error) {
+        res.json({ fatal: error.message });
+    }
+     
 }
 
-const updateInmueble = (req, res) => {
-    res.json('PUT')
+const updateInmueble = async (req, res) => {
+    try {
+        const { inmuebleId } = req.params;
+        const result = await InmuebleModel.findByIdAndUpdate(inmuebleId, req.body);
+        res.json(result);
+    } catch (error) {
+        res.json({fatal: error.message})
+    }
 }
 
-const deleteInmueble = (req, res) => {
-    res.json('DELETE')
+const deleteInmueble = async (req, res) => {
+    try {
+        const { inmuebleId } = req.params;
+        const result = await InmuebleModel.findByIdAndDelete(inmuebleId);
+        res.json(result);
+    } catch (error) {
+        res.json({ fatal: error.message });
+    }
 }
 
 module.exports = { getInmuebles, createInmueble, updateInmueble, deleteInmueble };
